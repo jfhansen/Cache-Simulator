@@ -9,13 +9,11 @@
 #include <math.h>
 
 #include "cache_config.hpp"
-#include "cache_sim.hpp"
 
 void print_usage()
 {
-    std::cout << "Usage: ./build/driver -i <tracefile> [OPTIONS]" << std::endl;
+    std::cout << "Usage: ./driver -i <tracefile> [OPTIONS]" << std::endl;
     std::cout << "\t-i <tracefile>\t:\tPath to trace file." << std::endl;
-    std::cout << "\t-b batchsize\t:\tBatch Size (must be first argument)." << std::endl;
     std::cout << "\t-a assoctvty\t:\tCache set associativity." << std::endl;
     std::cout << "\t-l blocksize\t:\tSize of cache blocks in bytes." << std::endl;
     std::cout << "\t-s cachesize\t:\tCache size in KiB." << std::endl;
@@ -103,49 +101,24 @@ std::tuple<int, std::vector<std::string>> parse_config_file(std::string filePath
 
 int main( int argc, char *argv[] )
 {
-    // Used for taking time of execution.
     auto t1 = std::chrono::high_resolution_clock::now();
-    // Assert that arguments have been passed to program.
-    if (argc <= 1)
-    {
-        print_usage();
-        exit(0);
-    }
+    assert(argc > 1);
     CacheConfig *config;
-    unsigned offset, batchSize;
-    // Check if -b has been passed as first argument
-    if (std::strcmp(argv[1], "-b") == 0)
-    {
-        batchSize = strtol(argv[2], nullptr, 10);
-        offset = 2;
-        std::cout << "User-defined batch size: " << batchSize << std::endl;
-    } 
-    else
-    {
-        // Default batchSize is 100
-        batchSize = 100;
-        offset = 0;
-        std::cout << "Default Batch size: 100" << std::endl;
-    }
-    
-    if (std::strcmp(argv[1+offset],"-c") == 0)
+    if (std::strcmp(argv[1],"-c") == 0)
     {
         int count;
         std::vector<std::string> v;
-        std::tie(count, v) = parse_config_file(argv[2+offset]);
+        std::tie(count, v) = parse_config_file(argv[2]);
         config = parse_cli_args(count, v);
     }
     else 
     {
-        std::vector<std::string> args(argv+1+offset, argv+argc);
-        config = parse_cli_args(argc-(1+offset), args);
+        std::vector<std::string> args(argv + 1, argv + argc);
+        config = parse_cli_args(argc-1, args);
     }
-    
-    std::cout << config;
-    CacheSim sim(batchSize, *config);
-    sim.run();
     auto t2 = std::chrono::high_resolution_clock::now();
     auto dur = std::chrono::duration_cast<std::chrono::microseconds>(t2-t1).count();
     std::cout << "Execution time: " << dur << " µs." << std::endl;
+    std::cout << config;
     return 0;
 }

@@ -99,7 +99,9 @@ std::string CacheConfig::get_trace_file_path()
 
 std::ostream& operator<<(std::ostream& os, CacheConfig *cfg)
 {
-    os << "Cache size: " << cfg->get_cache_size() << " KiB." << std::endl;
+    os << "Trace-file path: " << cfg->get_trace_file_path() << std::endl;
+    os << "Cache parameters: " << std::endl;
+    os << "Cache size: " << cfg->get_cache_size() << " B." << std::endl;
     os << "Block size: " << cfg->get_block_size() << " B." << std::endl;
     os << "Set associativity: " << cfg->get_associativity() << " ways." << std::endl;
     os << "Miss penalty: " << cfg->get_miss_penalty() << " cycles." << std::endl;
@@ -107,6 +109,5 @@ std::ostream& operator<<(std::ostream& os, CacheConfig *cfg)
     os << "Replacement Scheme: " << cfg->get_replacement_scheme() << "." << std::endl;
     os << "Write Scheme: " << cfg->get_write_scheme() << "." << std::endl;
     os << "Write-Miss Scheme: " << cfg->get_write_miss_scheme() << "." << std::endl;
-    os << "Trace-file path: " << cfg->get_trace_file_path() << std::endl;
     return os;
 }

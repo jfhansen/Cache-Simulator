@@ -28,7 +28,7 @@ CacheAccess::CacheAccess(unsigned batch_size, std::string trace_file)
 // Gets memory access currently pointed at in fetched data.
 // Returns memory address, type of access and number of instructions
 // between consecutive accesses.
-std::tuple<uint64_t, bool, unsigned> CacheAccess::get_access()
+std::tuple<uint64_t, bool, uint32_t> CacheAccess::get_access()
 {
     // Create return tuple
     auto return_tup = std::make_tuple(_addresses[_currentAccess], 
@@ -81,7 +81,7 @@ unsigned CacheAccess::parse_input_file()
             // Third field contains address string.
             ss >> std::hex >> addr;
             // Fourth field contains number of instructions between consecutive accesses.
-            ss >> instr;
+            ss >> std::dec >> instr;
             
             // Insert parsed line into CacheAccess member variables.
             _addresses[i] = addr;
