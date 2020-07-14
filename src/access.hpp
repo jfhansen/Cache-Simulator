@@ -46,7 +46,6 @@ class CacheAccess
 
         // Number of instructions between consecutive accesses
         std::vector<uint32_t> _numInstructions;
-
         // Name of input file
         const std::string _fileName;
 

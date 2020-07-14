@@ -46,7 +46,6 @@ It is highly recommended that associativity, block size, cache size, miss penalt
 
 The default values for replacement scheme, write scheme and write miss scheme are respectively LRU, Write-back and Write-allocate, which are very popular policies in caches.
 
-
 ## Development Status
 Under development: 
 * Trace file parsing (finished)
