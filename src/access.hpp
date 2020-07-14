@@ -26,7 +26,7 @@ class CacheAccess
         // Gets memory access currently pointed at in fetched data.
         // Returns memory address, type of access and number of instructions
         // between consecutive accesses.
-        std::tuple<uint64_t, bool, unsigned> get_access();
+        std::tuple<uint64_t, bool, uint32_t> get_access();
 
         // Fetches new batch from input file.
         unsigned fetch_batch();
@@ -45,8 +45,7 @@ class CacheAccess
         std::vector<bool> _types;
 
         // Number of instructions between consecutive accesses
-        std::vector<unsigned> _numInstructions;
-
+        std::vector<uint32_t> _numInstructions;
         // Name of input file
         const std::string _fileName;
 

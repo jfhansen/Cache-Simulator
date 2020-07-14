@@ -99,6 +99,9 @@ std::string CacheConfig::get_trace_file_path()
 
 std::ostream& operator<<(std::ostream& os, CacheConfig *cfg)
 {
+    os << "Trace-file path: " << cfg->get_trace_file_path() << std::endl;
+    os << "Cache parameters: " << std::endl;
+    os << "Cache size: " << cfg->get_cache_size() << " B." << std::endl;
     os << "Cache size: " << cfg->get_cache_size() << " KiB." << std::endl;
     os << "Block size: " << cfg->get_block_size() << " B." << std::endl;
     os << "Set associativity: " << cfg->get_associativity() << " ways." << std::endl;
